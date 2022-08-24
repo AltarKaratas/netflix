@@ -2,38 +2,43 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, Browse, Signin, Signup} from './pages'
 import * as ROUTES from './constants/routes';
-import { RenderOrRedirect, ProtectedRoutes } from "./helpers/routes";
+import { RenderOnCondition } from "./helpers/routes";
 
 export default function App() {
 
-  const userLoggedIn = false;
+  // const user = null;
+  const userLoggedIn = true;
 
   return (
     <BrowserRouter>
       <Routes>
         <Route exact path={ROUTES.HOME} element={
-          <Home />
+          <RenderOnCondition
+            condition={!userLoggedIn} 
+            redirectIfFalse={ROUTES.BROWSE}>
+              <Home />
+          </RenderOnCondition>
         }/>
         <Route exact path={ROUTES.BROWSE} element={
-          <RenderOrRedirect 
-            condition={userLoggedIn} 
-            pathToRedirect={ROUTES.SIGN_UP}>
+          <RenderOnCondition 
+            condition={userLoggedIn}
+            redirectIfFalse={ROUTES.SIGN_UP}>
               <Browse />
-          </RenderOrRedirect>
+          </RenderOnCondition>
         }/>
         <Route exact path={ROUTES.SIGN_IN} element={
-          <RenderOrRedirect 
-            condition={!userLoggedIn} 
-            pathToRedirect={ROUTES.BROWSE}>
+          <RenderOnCondition 
+            condition={!userLoggedIn}
+            redirectIfFalse={ROUTES.BROWSE}>
               <Signin />
-          </RenderOrRedirect>
+          </RenderOnCondition>
         }/>
         <Route exact path={ROUTES.SIGN_UP} element={
-          <RenderOrRedirect 
+          <RenderOnCondition 
             condition={!userLoggedIn} 
-            pathToRedirect={ROUTES.BROWSE}>
+            redirectIfFalse={ROUTES.BROWSE}>
               <Signup />
-          </RenderOrRedirect>
+          </RenderOnCondition>
         }/>
       </Routes>
     </BrowserRouter>
