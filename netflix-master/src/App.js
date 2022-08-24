@@ -3,10 +3,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, Browse, Signin, Signup} from './pages'
 import * as ROUTES from './constants/routes';
 import { RenderOnCondition } from "./helpers/routes";
+import { useAuthListener } from './hooks';
+
 
 export default function App() {
 
-  const user = {name: "Arfun"};
+  const {user} = useAuthListener();
 
   return (
     <BrowserRouter>
