@@ -6,36 +6,35 @@ import { RenderOnCondition } from "./helpers/routes";
 
 export default function App() {
 
-  // const user = null;
-  const userLoggedIn = true;
+  const user = {name: "Arfun"};
 
   return (
     <BrowserRouter>
       <Routes>
         <Route exact path={ROUTES.HOME} element={
           <RenderOnCondition
-            condition={!userLoggedIn} 
+            condition={!user} 
             redirectIfFalse={ROUTES.BROWSE}>
               <Home />
           </RenderOnCondition>
         }/>
         <Route exact path={ROUTES.BROWSE} element={
           <RenderOnCondition 
-            condition={userLoggedIn}
+            condition={user}
             redirectIfFalse={ROUTES.SIGN_UP}>
               <Browse />
           </RenderOnCondition>
         }/>
         <Route exact path={ROUTES.SIGN_IN} element={
           <RenderOnCondition 
-            condition={!userLoggedIn}
+            condition={!user}
             redirectIfFalse={ROUTES.BROWSE}>
               <Signin />
           </RenderOnCondition>
         }/>
         <Route exact path={ROUTES.SIGN_UP} element={
           <RenderOnCondition 
-            condition={!userLoggedIn} 
+            condition={!user} 
             redirectIfFalse={ROUTES.BROWSE}>
               <Signup />
           </RenderOnCondition>
