@@ -1,5 +1,23 @@
 import React from "react";
 
-export default function Browse(){
-    return <p>Hello to signup browse</p>
-}
+import { FooterContainer } from "../containers/footer";
+import { FaqsContainer } from "../containers/faqs";
+import { HeaderContainer } from '../containers/header';
+
+import { useContent } from "../hooks";
+
+
+export default function Browse() {
+    const series = useContent('series', 5);
+    console.log(series);
+    
+    return (
+        <>
+            <HeaderContainer >
+            </HeaderContainer>
+
+            <FaqsContainer />
+            <FooterContainer />
+        </>
+    )
+};
